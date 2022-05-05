@@ -1,16 +1,16 @@
 @font-face {
     font-family: "DMSans";
-    src: url("../fonts/DMSans-regular.ttf");
+    src: url("fonts/DMSans-regular.ttf");
 }
 
   @font-face {
     font-family: "Lato";
-    src: url("../fonts/Lato-regular.ttf");
+    src: url("fonts/Lato-regular.ttf");
 }
 
   @font-face {
     font-family: "Roboto";
-    src: url("../fonts/Roboto-regular.ttf");
+    src: url("fonts/Roboto-regular.ttf");
 }
 
 :root {
