@@ -23,9 +23,15 @@ async function init() {
 
     //filter
     let selectedIngredient = "Concombre";
+    let selectedAppliance = "Saladier";
+    let selectedUstensil = "presse citron";
 
-   function filterIngredient(selectedIngredient) {
-       if (recipes.ingredients.ingredient === selectedIngredient) {
+   function filterIngredient(selectedIngredient, selectedAppliance, selectedUstensil) {
+       if (ingredients.ingredient == selectedIngredient) {
+            return displayRecipes(recipesFiltered)
+        } if (appliance == selectedAppliance) {
+            return displayRecipes(recipesFiltered)
+        } if (ustensils == selectedUstensil) {
             return displayRecipes(recipesFiltered)
         }
     }

@@ -3,7 +3,15 @@ function recipeFactory(data) {
 
     function getRecipeCardDOM() {
         let ingredientsTemplate = "";
-        //ingredientsTemplate += `<strong>${ingredients[0].ingredient}:</strong> ${ingredients[0].quantity}${ingredients[0].unit}<br>`
+        let ingredientUnit = "";
+        ingredients.forEach((ingredient) => {
+            if (ingredients[0].unit !== undefined) {
+                ingredientUnit = ingredients[0].unit;
+            } else {
+                ingredientUnit = ""
+            }
+            ingredientsTemplate = `<strong>${ingredients[0].ingredient}:</strong> ${ingredients[0].quantity} ${ingredientUnit} <br>`
+        })
 
         let cardTemplate = 
         `<div class="card col-lg-4 col-md-6 col-sm-12">
