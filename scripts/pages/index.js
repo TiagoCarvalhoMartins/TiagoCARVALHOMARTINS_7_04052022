@@ -16,26 +16,47 @@ function displayRecipes(recipes) {
     });
 };
 
+function displayDropdown(recipes) {
+    const dropdownList = document.querySelector(".applianceDropdown");
+    dropdownList.innerHTML = ""
+    recipes.forEach((recipe) => {
+        const dropdownModel = dropdownFactory(recipe);
+        const dropdownDOM = dropdownModel.getApplianceDropdownCardDOM();
+        dropdownList.innerHTML += dropdownDOM;
+    });
+};
+
+function dropdownListener () {
+    const tagDiv = document.querySelector(".tags")
+    const dropdownModel = dropdownFactory();
+    const tagCreation = dropdownModel.addListener ();
+    tagDiv.appendChild(tagCreation) 
+}
+
+let selectedIngredients = "Concombre";
+let selectedAppliances = ["Saladier"];
+let selectedUstensils = "presse citron";
 
 async function init() {
     const recipes  = await getRecipes();
     displayRecipes(recipes);
+    displayDropdown(recipes);
+    dropdownListener();
 
-    //filter
-    let selectedIngredient = "Concombre";
-    let selectedAppliance = "Saladier";
-    let selectedUstensil = "presse citron";
-
-   function filterIngredient(selectedIngredient, selectedAppliance, selectedUstensil) {
-       if (ingredients.ingredient == selectedIngredient) {
-            return displayRecipes(recipesFiltered)
-        } if (appliance == selectedAppliance) {
-            return displayRecipes(recipesFiltered)
-        } if (ustensils == selectedUstensil) {
-            return displayRecipes(recipesFiltered)
-        }
-    }
-    filterIngredient(selectedIngredient)
+   function filterIngredient(recipes, selectedAppliances, selectedUstensils) {
+       //if (recipes.ingredients.ingredient == selectedIngredient && recipes.appliance == selectedAppliance && 
+        //recipes.ustensils == selectedUstensil) {
+        //  return displayRecipes(recipesFiltered)
+        //}
+        const recipesFiltered = recipes.filter (function (recipe) {
+            let applianceFiltered = selectedAppliances.includes(recipe.appliance) 
+            let ustensilsFiltered = recipe.ustensils.includes(selectedUstensils)
+            return (applianceFiltered || ustensilsFiltered)
+        })
+        return (recipesFiltered)
+   }
+    const recipesFiltered = filterIngredient(recipes, selectedAppliances, selectedUstensils)
+    displayRecipes (recipesFiltered)
 };
 
 init();

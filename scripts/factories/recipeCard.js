@@ -5,12 +5,12 @@ function recipeFactory(data) {
         let ingredientsTemplate = "";
         let ingredientUnit = "";
         ingredients.forEach((ingredient) => {
-            if (ingredients[0].unit !== undefined) {
-                ingredientUnit = ingredients[0].unit;
+            if (ingredient.unit !== undefined) {
+                ingredientUnit = ingredient.unit;
             } else {
                 ingredientUnit = ""
             }
-            ingredientsTemplate = `<strong>${ingredients[0].ingredient}:</strong> ${ingredients[0].quantity} ${ingredientUnit} <br>`
+            ingredientsTemplate += `<strong>${ingredient.ingredient}:</strong> ${ingredient.quantity} ${ingredientUnit} <br>`
         })
 
         let cardTemplate = 
