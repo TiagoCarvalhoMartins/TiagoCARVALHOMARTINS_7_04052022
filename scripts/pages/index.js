@@ -17,21 +17,40 @@ function displayRecipes(recipes) {
 };
 
 function displayDropdown(recipes) {
-    const dropdownList = document.querySelector(".applianceDropdown");
-    dropdownList.innerHTML = ""
-    recipes.forEach((recipe) => {
-        const dropdownModel = dropdownFactory(recipe);
-        const dropdownDOM = dropdownModel.getApplianceDropdownCardDOM();
-        dropdownList.innerHTML += dropdownDOM;
-    });
-};
+    const dropdownListAppliance = document.querySelector(".dropdown.appliances");
+    const dropdownListIngredients = document.querySelector(".dropdown.ingredients");
+    const dropdownListUstensils = document.querySelector(".dropdown.ustensils");
+    let appliancesDuplicate = []
+    let ingredientsDuplicate = []
+    let ustensilsConcat = []
 
-function dropdownListener () {
-    const tagDiv = document.querySelector(".tags")
-    const dropdownModel = dropdownFactory();
-    const tagCreation = dropdownModel.addListener ();
-    tagDiv.appendChild(tagCreation) 
-}
+    recipes.forEach(function (recipes) {
+        appliancesDuplicate.push(recipes.appliance)
+    })
+    let appliances = [...new Set(appliancesDuplicate)];
+
+    recipes.forEach(function (recipes) {
+        recipes.ingredients.forEach(function(ingredients){
+            ingredientsDuplicate.push(ingredients.ingredient)
+          })
+    });
+    let ingredients = [...new Set(ingredientsDuplicate)];
+
+    recipes.forEach(function (recipes) {
+        ustensilsConcat.push(recipes.ustensils)
+    })
+    let ustensilsDuplicate = [].concat.apply([], ustensilsConcat);
+    let ustensils = [...new Set(ustensilsDuplicate)];
+
+    let dropdownAppliance = dropdownFactory (appliances, dropdownListAppliance)
+    let dropdownIngredients = dropdownFactory (ingredients, dropdownListIngredients)
+    let dropdownUstensils = dropdownFactory (ustensils, dropdownListUstensils)
+    //recipes.forEach((recipe) => {
+    //    const dropdownModel = dropdownFactory(recipe);
+    //    const dropdownDOM = dropdownModel.getApplianceDropdownCardDOM();
+    //    dropdownList.innerHTML += dropdownDOM;
+    //});
+};
 
 let selectedIngredients = "Concombre";
 let selectedAppliances = ["Saladier"];
@@ -41,13 +60,8 @@ async function init() {
     const recipes  = await getRecipes();
     displayRecipes(recipes);
     displayDropdown(recipes);
-    dropdownListener();
 
    function filterIngredient(recipes, selectedAppliances, selectedUstensils) {
-       //if (recipes.ingredients.ingredient == selectedIngredient && recipes.appliance == selectedAppliance && 
-        //recipes.ustensils == selectedUstensil) {
-        //  return displayRecipes(recipesFiltered)
-        //}
         const recipesFiltered = recipes.filter (function (recipe) {
             let applianceFiltered = selectedAppliances.includes(recipe.appliance) 
             let ustensilsFiltered = recipe.ustensils.includes(selectedUstensils)
