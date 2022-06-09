@@ -1,241 +1,323 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		/>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="css/bootstrap/bootstrap-grid.css" type="text/css">
-    <link rel="stylesheet" href="css/bootstrap/bootstrap-utilities.css" type="text/css">
-    <link rel="stylesheet" href="css/style.css" type="text/css">
-    <script src="https://kit.fontawesome.com/16c7ddff84.js" crossorigin="anonymous"></script>
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="css/bootstrap/bootstrap.css" type="text/css" />
+		<link
+			rel="stylesheet"
+			href="css/bootstrap/bootstrap-grid.css"
+			type="text/css"
+		/>
+		<link
+			rel="stylesheet"
+			href="css/bootstrap/bootstrap-utilities.css"
+			type="text/css"
+		/>
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		<script
+			src="https://kit.fontawesome.com/16c7ddff84.js"
+			crossorigin="anonymous"
+		></script>
 
-    <title>Les petits plats</title>
-  </head>
-  <body id="body">
-    <header class="text-center">
-        <img id="logo" src="assets/logo.png" alt="Logo Les petits plats">
-        <h1><strong>Les petits plats</strong></h1>
-    </header>
-    <nav class="navbar navbar-expand-lg d-flex flex-column">
-        <form class="research d-flex flex-row">
-            <input class="form-control form-control-lg researchForm" type="search" placeholder="Rechercher une recette" aria-label="Search">
-            <button class="fa-solid fa-magnifying-glass" type="submit"></button>
-        </form>
-        <div class="tags">
-            <div class="singleTag btn-primary d-flex flex-row">
-                <button class="btn btn-primary closeIngredient">Coco<span class="fa-regular fa-circle-xmark"></span></button>
-            </div>
-            <div class="singleTag btn-primary d-flex flex-row">
-                <button class="btn btn-primary closeIngredient">Coco<span class="fa-regular fa-circle-xmark"></span></button>
-            </div>
-            <div class="singleTag btn-primary d-flex flex-row">
-                <button class="btn btn-primary closeIngredient">Coco<span class="fa-regular fa-circle-xmark"></span></button>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="dropdown ingredients col">
-                    <button class="btn dropdown-toggle btn-primary btn-lg me-3" type="button" id="dropdownIngredients" data-bs-toggle="dropdown" aria-expanded="false">
-                    Ingredients
-                    </button>
-                    <ul class="dropdown-menu ingredientsListBlue" aria-labelledby="dropdownIngredients">
-                        <div class="searchForm">
-                            <input id="ingredients-tag-input" class="form-control bg-primary tag-search-input" type="text" 
-                            name="search-ingredient" placeholder="Rechercher un ingrédient">
-                            <span class="fa-solid fa-caret-up"></span>
-                        </div>
-                        <div class="dropdownItems">
-                            <li><a class="dropdown-item ingredientItemBlue" href="#">Action</a></li>
-                            <li><a class="dropdown-item ingredientItemBlue" href="#">Another action</a></li>
-                            <li><a class="dropdown-item ingredientItemBlue" href="#">Something else here</a></li>
-                        </div>
-                    </ul>
-                </div>
-                <div class="dropdown appliances col">
-                    <button class="btn dropdown-toggle btn-success btn-lg me-3" type="button" id="dropdownAppliance" data-bs-toggle="dropdown" aria-expanded="false">
-                    Appareils
-                    </button>
-                    <ul class="dropdown-menu applianceListGreen" aria-labelledby="dropdownAppliance">
-                        <div class="searchForm">
-                            <input id="appliance-tag-input" class="form-control bg-success tag-search-input" type="text" 
-                            name="search-appliance" placeholder="Rechercher un appareil">
-                            <span class="fa-solid fa-caret-up"></span>
-                        </div>
-                        <div class="dropdownItems">
-                            <li><a class="dropdown-item applianceItemGreen" href="#">Action</a></li>
-                            <li><a class="dropdown-item applianceItemGreen" href="#">Another action</a></li>
-                            <li><a class="dropdown-item applianceItemGreen" href="#">Something else here</a></li>
-                        </div>
-                    </ul>
-                </div>
-                <div class="dropdown ustensils col">
-                    <button class="btn dropdown-toggle btn-danger btn-lg me-3" type="button" id="dropdownUstensils" data-bs-toggle="dropdown" aria-expanded="false">
-                    Ustensiles 
-                    </button>
-                    <ul class="dropdown-menu ustensilsListRed" aria-labelledby="dropdownUstensils">
-                        <div class="searchForm">
-                            <input id="ustensils-tag-input" class="form-control bg-danger tag-search-input" type="text" 
-                            name="search-ustensil" placeholder="Rechercher un ustensil">
-                            <span class="fa-solid fa-caret-up"></span>
-                        </div>
-                        <div class="dropdownItems">
-                            <li><a class="dropdown-item ustensilsItemRed" href="#">Action</a></li>
-                            <li><a class="dropdown-item ustensilsItemRed" href="#">Another action</a></li>
-                            <li><a class="dropdown-item ustensilsItemRed" href="#">Something else here</a></li>
-                        </div>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <main>
-        <div class="container">
-            <div class="row cardRecipes">
-                <template>
-                    <div class="card col-lg-4 col-md-6 col-sm-12">
-                        <div class="thumbnailContainer">
-                            <img src="assets/thumbnail.png" class="thumbnail card-img-top">
-                        </div>
-                        <div class="texte card-body">
-                            <div class="titleTime d-flex flex-row justify-content-between">
-                                <h2>###title###</h2>
-                                <div class="time d-flex flex-row">
-                                    <span class="fa-regular fa-clock"></span>
-                                    <h3>###time### min</h3>
-                                </div>
-                            </div>
-                            <div class="recipe">
-                                <div class="container-fluid">
-                                    <div class="row d-flex flex-row">
-                                        <div class="neededIngredientsList col-6">
-                                            <h4>
-                                                ###ingredients###
-                                                <strong>Lait de coco:</strong> 400ml<br>
-                                                <strong>Jus de citron:</strong> 2<br>
-                                                <strong>Crème de coco:</strong> 4 cuillères<br>
-                                                <strong>Sucre:</strong> 20g<br>
-                                                <strong>Glaçons:</strong> 2<br>
-                                            </h4>
-                                        </div>
-                                        <div class="instructions col-6">
-                                            <p>###description###</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </template>
-                <div class="card col-lg-4 col-md-6 col-sm-12">
-                    <div class="thumbnailContainer">
-                        <img src="assets/thumbnail.png" class="thumbnail card-img-top">
-                    </div>
-                    <div class="texte card-body">
-                        <div class="titleTime d-flex flex-row justify-content-between">
-                            <h2>Limonade de Coco</h2>
-                            <div class="time d-flex flex-row">
-                                <span class="fa-regular fa-clock"></span>
-                                <h3>10 min</h3>
-                            </div>
-                        </div>
-                        <div class="recipe">
-                            <div class="container-fluid">
-                                <div class="row d-flex flex-row">
-                                    <div class="neededIngredientsList col-6">
-                                        <h4>
-                                            <strong>Lait de coco:</strong> 400ml<br>
-                                            <strong>Jus de citron:</strong> 2<br>
-                                            <strong>Crème de coco:</strong> 4 cuillères<br>
-                                            <strong>Sucre:</strong> 20g<br>
-                                            <strong>Glaçons:</strong> 2<br>
-                                        </h4>
-                                    </div>
-                                    <div class="instructions col-6">
-                                        <p>Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, 
-                                            le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistante désirée.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card col-lg-4 col-md-6 col-sm-12">
-                    <div class="thumbnailContainer">
-                        <img src="assets/thumbnail.png" class="thumbnail card-img-top">
-                    </div>
-                    <div class="texte card-body">
-                        <div class="titleTime d-flex flex-row justify-content-between">
-                            <h2>Limonade de Coco</h2>
-                            <div class="time d-flex flex-row">
-                                <span class="fa-regular fa-clock"></span>
-                                <h3>10 min</h3>
-                            </div>
-                        </div>
-                        <div class="recipe">
-                            <div class="container-fluid">
-                                <div class="row d-flex flex-row">
-                                    <div class="neededIngredientsList col-6">
-                                        <h4>
-                                            <strong>Lait de coco:</strong> 400ml<br>
-                                            <strong>Jus de citron:</strong> 2<br>
-                                            <strong>Crème de coco:</strong> 4 cuillères<br>
-                                            <strong>Sucre:</strong> 20g<br>
-                                            <strong>Glaçons:</strong> 2<br>
-                                        </h4>
-                                    </div>
-                                    <div class="instructions col-6">
-                                        <p>Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, 
-                                            le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistante désirée.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card col-lg-4 col-md-6 col-sm-12">
-                    <div class="thumbnailContainer">
-                        <img src="assets/thumbnail.png" class="thumbnail card-img-top">
-                    </div>
-                    <div class="texte card-body">
-                        <div class="titleTime d-flex flex-row justify-content-between">
-                            <h2>Limonade de Coco</h2>
-                            <div class="time d-flex flex-row">
-                                <span class="fa-regular fa-clock"></span>
-                                <h3>10 min</h3>
-                            </div>
-                        </div>
-                        <div class="recipe">
-                            <div class="container-lg">
-                                <div class="row d-flex flex-row">
-                                    <div class="neededIngredientsList col-6">
-                                        <h4>
-                                            <strong>Lait de coco:</strong> 400ml<br>
-                                            <strong>Jus de citron:</strong> 2<br>
-                                            <strong>Crème de coco:</strong> 4 cuillères<br>
-                                            <strong>Sucre:</strong> 20g<br>
-                                            <strong>Glaçons:</strong> 2<br>
-                                        </h4>
-                                    </div>
-                                    <div class="instructions col-6">
-                                        <p>Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, 
-                                            le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistante désirée.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>    
-    </main>
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="scripts/factories/recipeCard.js"></script>
-    <script src="scripts/factories/dropdown.js"></script>
-    <script src="scripts/pages/index.js"></script>
-  </body>
+		<title>Les petits plats</title>
+	</head>
+	<body id="body">
+		<header class="text-center">
+			<img id="logo" src="assets/logo.png" alt="Logo Les petits plats" />
+			<h1><strong>Les petits plats</strong></h1>
+		</header>
+		<nav class="navbar navbar-expand-lg d-flex flex-column">
+			<form class="research d-flex flex-row">
+				<input
+					class="form-control form-control-lg researchForm"
+					type="search"
+					placeholder="Rechercher une recette"
+					aria-label="Search"
+				/>
+				<button class="fa-solid fa-magnifying-glass" type="submit"></button>
+			</form>
+			<div class="tags">
+				<!--tags will go there-->
+			</div>
+			<div class="container-fluid">
+				<div class="row">
+					<div class="dropdown ingredients col" data-color="blue">
+						<button
+							class="btn dropdown-toggle btn-primary btn-lg me-3"
+							type="button"
+							id="dropdownIngredients"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Ingredients
+						</button>
+						<ul
+							class="dropdown-menu ingredientsListBlue"
+							aria-labelledby="dropdownIngredients"
+						>
+							<div class="searchForm">
+								<input
+									id="ingredients-tag-input"
+									class="form-control bg-primary tag-search-input"
+									type="text"
+									name="search-ingredient"
+									placeholder="Rechercher un ingrédient"
+								/>
+								<span class="fa-solid fa-caret-up"></span>
+							</div>
+							<div class="dropdownItems">
+								<li><a class="dropdown-item blue" href="#">Action</a></li>
+								<li>
+									<a class="dropdown-item blue" href="#">Another action</a>
+								</li>
+								<li>
+									<a class="dropdown-item blue" href="#">Something else here</a>
+								</li>
+							</div>
+						</ul>
+					</div>
+					<div class="dropdown appliances col" data-color="green">
+						<button
+							class="btn dropdown-toggle btn-success btn-lg me-3"
+							type="button"
+							id="dropdownAppliance"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Appareils
+						</button>
+						<ul
+							class="dropdown-menu applianceListGreen"
+							aria-labelledby="dropdownAppliance"
+						>
+							<div class="searchForm">
+								<input
+									id="appliance-tag-input"
+									class="form-control bg-success tag-search-input"
+									type="text"
+									name="search-appliance"
+									placeholder="Rechercher un appareil"
+								/>
+								<span class="fa-solid fa-caret-up"></span>
+							</div>
+							<div class="dropdownItems">
+								<li><a class="dropdown-item green" href="#">Action</a></li>
+								<li>
+									<a class="dropdown-item green" href="#">Another action</a>
+								</li>
+								<li>
+									<a class="dropdown-item green" href="#"
+										>Something else here</a
+									>
+								</li>
+							</div>
+						</ul>
+					</div>
+					<div class="dropdown ustensils col" data-color="red">
+						<button
+							class="btn dropdown-toggle btn-danger btn-lg me-3"
+							type="button"
+							id="dropdownUstensils"
+							data-bs-toggle="dropdown"
+							aria-expanded="false"
+						>
+							Ustensiles
+						</button>
+						<ul
+							class="dropdown-menu ustensilsListRed"
+							aria-labelledby="dropdownUstensils"
+						>
+							<div class="searchForm">
+								<input
+									id="ustensils-tag-input"
+									class="form-control bg-danger tag-search-input"
+									type="text"
+									name="search-ustensil"
+									placeholder="Rechercher un ustensil"
+								/>
+								<span class="fa-solid fa-caret-up"></span>
+							</div>
+							<div class="dropdownItems">
+								<li><a class="dropdown-item red" href="#">Action</a></li>
+								<li>
+									<a class="dropdown-item red" href="#">Another action</a>
+								</li>
+								<li>
+									<a class="dropdown-item red" href="#">Something else here</a>
+								</li>
+							</div>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<main>
+			<div class="container">
+				<div class="row cardRecipes">
+					<template>
+						<div class="card col-lg-4 col-md-6 col-sm-12">
+							<div class="thumbnailContainer">
+								<img
+									src="assets/thumbnail.png"
+									class="thumbnail card-img-top"
+								/>
+							</div>
+							<div class="texte card-body">
+								<div class="titleTime d-flex flex-row justify-content-between">
+									<h2>###title###</h2>
+									<div class="time d-flex flex-row">
+										<span class="fa-regular fa-clock"></span>
+										<h3>###time### min</h3>
+									</div>
+								</div>
+								<div class="recipe">
+									<div class="container-fluid">
+										<div class="row d-flex flex-row">
+											<div class="neededIngredientsList col-6">
+												<h4>
+													###ingredients###
+													<strong>Lait de coco:</strong> 400ml<br />
+													<strong>Jus de citron:</strong> 2<br />
+													<strong>Crème de coco:</strong> 4 cuillères<br />
+													<strong>Sucre:</strong> 20g<br />
+													<strong>Glaçons:</strong> 2<br />
+												</h4>
+											</div>
+											<div class="instructions col-6">
+												<p>###description###</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</template>
+					<div class="card col-lg-4 col-md-6 col-sm-12">
+						<div class="thumbnailContainer">
+							<img src="assets/thumbnail.png" class="thumbnail card-img-top" />
+						</div>
+						<div class="texte card-body">
+							<div class="titleTime d-flex flex-row justify-content-between">
+								<h2>Limonade de Coco</h2>
+								<div class="time d-flex flex-row">
+									<span class="fa-regular fa-clock"></span>
+									<h3>10 min</h3>
+								</div>
+							</div>
+							<div class="recipe">
+								<div class="container-fluid">
+									<div class="row d-flex flex-row">
+										<div class="neededIngredientsList col-6">
+											<h4>
+												<strong>Lait de coco:</strong> 400ml<br />
+												<strong>Jus de citron:</strong> 2<br />
+												<strong>Crème de coco:</strong> 4 cuillères<br />
+												<strong>Sucre:</strong> 20g<br />
+												<strong>Glaçons:</strong> 2<br />
+											</h4>
+										</div>
+										<div class="instructions col-6">
+											<p>
+												Mettre les glaçons à votre goût dans le blender, ajouter
+												le lait, la crème de coco, le jus de 2 citrons et le
+												sucre. Mixer jusqu'à avoir la consistante désirée.
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card col-lg-4 col-md-6 col-sm-12">
+						<div class="thumbnailContainer">
+							<img src="assets/thumbnail.png" class="thumbnail card-img-top" />
+						</div>
+						<div class="texte card-body">
+							<div class="titleTime d-flex flex-row justify-content-between">
+								<h2>Limonade de Coco</h2>
+								<div class="time d-flex flex-row">
+									<span class="fa-regular fa-clock"></span>
+									<h3>10 min</h3>
+								</div>
+							</div>
+							<div class="recipe">
+								<div class="container-fluid">
+									<div class="row d-flex flex-row">
+										<div class="neededIngredientsList col-6">
+											<h4>
+												<strong>Lait de coco:</strong> 400ml<br />
+												<strong>Jus de citron:</strong> 2<br />
+												<strong>Crème de coco:</strong> 4 cuillères<br />
+												<strong>Sucre:</strong> 20g<br />
+												<strong>Glaçons:</strong> 2<br />
+											</h4>
+										</div>
+										<div class="instructions col-6">
+											<p>
+												Mettre les glaçons à votre goût dans le blender, ajouter
+												le lait, la crème de coco, le jus de 2 citrons et le
+												sucre. Mixer jusqu'à avoir la consistante désirée.
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card col-lg-4 col-md-6 col-sm-12">
+						<div class="thumbnailContainer">
+							<img src="assets/thumbnail.png" class="thumbnail card-img-top" />
+						</div>
+						<div class="texte card-body">
+							<div class="titleTime d-flex flex-row justify-content-between">
+								<h2>Limonade de Coco</h2>
+								<div class="time d-flex flex-row">
+									<span class="fa-regular fa-clock"></span>
+									<h3>10 min</h3>
+								</div>
+							</div>
+							<div class="recipe">
+								<div class="container-lg">
+									<div class="row d-flex flex-row">
+										<div class="neededIngredientsList col-6">
+											<h4>
+												<strong>Lait de coco:</strong> 400ml<br />
+												<strong>Jus de citron:</strong> 2<br />
+												<strong>Crème de coco:</strong> 4 cuillères<br />
+												<strong>Sucre:</strong> 20g<br />
+												<strong>Glaçons:</strong> 2<br />
+											</h4>
+										</div>
+										<div class="instructions col-6">
+											<p>
+												Mettre les glaçons à votre goût dans le blender, ajouter
+												le lait, la crème de coco, le jus de 2 citrons et le
+												sucre. Mixer jusqu'à avoir la consistante désirée.
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- JavaScript -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+			crossorigin="anonymous"
+		></script>
+		<script src="scripts/factories/recipeCard.js"></script>
+		<script src="scripts/factories/dropdown.js"></script>
+		<script src="scripts/pages/index.js"></script>
+	</body>
 </html>

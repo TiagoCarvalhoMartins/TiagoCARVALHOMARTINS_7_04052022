@@ -2,14 +2,17 @@ function dropdownFactory (data, element) {
 
     let selectedItems = []
     const dropdown = element.querySelector(".dropdownItems")
+    const tags = document.querySelector(".tags")
+    const color = element.getAttribute("data-color")
     getApplianceDropdownCardDOM();
 
     function getApplianceDropdownCardDOM() {
         
-        data.forEach(function (appliance) {
-            dropdownTemplate = `<li><a class="dropdown-item applianceItemGreen" href="#">${appliance}</a></li>`
+        let dropdownTemplate = ""
+        data.forEach(function (item) {
+            dropdownTemplate += `<li><a class="dropdown-item ${color}" href="#">${item}</a></li>`
         })
-        //dropdown.appendChild(appliance)
+        dropdown.innerHTML = dropdownTemplate
 
         const listenerTag = element.querySelectorAll(".dropdown-item");
         listenerTag.forEach (function (dropdownItem) {
@@ -19,27 +22,31 @@ function dropdownFactory (data, element) {
 
     function _onclickOnDropdown(event) {
         let currentTagTarget = event.currentTarget;
-        let tagData = currentTagTarget.dataset.appliance;
-        _displayTag (tagData);
         selectedItems.push(currentTagTarget.innerHTML)
+        _displayTag (currentTagTarget.innerHTML);
         
     }
 
-    function _displayTag() { 
-        const closeTagBtn = element.querySelectorAll(".closeIngredient");
-        closeTagBtn.forEach((tag) =>tag.addEventListener('click', _deleteTag)); 
+    function _displayTag(tagName) {  
 
         tagTemplate = 
-        `<div class="singleTag btn-sucess d-flex flex-row">
-            <button class="btn btn-sucess closeIngredient">currentTagTarget<span class="fa-regular fa-circle-xmark"></span></button>
+        `<div class="singleTag ${color} d-flex flex-row">
+            <button class="btn ${color} ">${tagName}<span class="fa-regular fa-circle-xmark"></span></button>
         </div>`
-        return (tagTemplate)
-
+        tags.innerHTML += tagTemplate
     }
 
-    function _deleteTag () {
-        $( ".singleTag" ).remove()
+    function closeListener() {
+        const closeTagBtn = element.querySelector(".singleTag");
+        closeTagBtn.forEach((tag) =>tag.addEventListener('click', _deleteTag));
+    }
+
+    function _deleteTag (event) {
+        let currentTagTarget = event.currentTarget;
+        const istagToDelete = (elementToFind) => elementToFind = currentTagTarget.innerHTML;
+        let tagToDelete = selectedItems.findIndex(istagToDelete)
+        selectedItems.splice(tagToDelete, 1)
 
     }
-    return { selectedItems, getApplianceDropdownCardDOM, addListener }
+    return { selectedItems, getApplianceDropdownCardDOM, closeListener }
 }

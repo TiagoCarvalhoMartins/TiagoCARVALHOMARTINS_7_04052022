@@ -113,37 +113,37 @@ body {
     border-bottom-right-radius: 0.3rem;
 }
 
-.ingredientsListBlue, .ingredientItemBlue {
+.ingredientsListBlue, .blue {
     color: #fff;
     background-color: #0b5ed7;
     border-color: #0a58ca;
 }
 
-.ingredientsListBlue:hover, .ingredientItemBlue:hover {
+.ingredientsListBlue:hover, .blue:hover {
     color: #fff;
     background-color: #3282F7;
     border-color: #3282F7;
 }
 
-.applianceListGreen, .applianceItemGreen {
+.applianceListGreen, .green {
     color: #fff;
     background-color: #157347;
     border-color: #146c43;
 }
 
-.applianceListGreen:hover, .applianceItemGreen:hover {
+.applianceListGreen:hover, .green:hover {
     color: #fff;
     background-color: #68D9A4;
     border-color: #68D9A4;
 }
 
-.ustensilsListRed, .ustensilsItemRed {
+.ustensilsListRed, .red {
     color: #fff;
     background-color: #bb2d3b;
     border-color: #b02a37;
 }
 
-.ustensilsListRed:hover, .ustensilsItemRed:hover {
+.ustensilsListRed:hover, .red:hover {
     color: #fff;
     background-color: #ED6454;
     border-color: #ED6454;

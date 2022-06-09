@@ -24,11 +24,14 @@ function displayDropdown(recipes) {
     let ingredientsDuplicate = []
     let ustensilsConcat = []
 
+    //all appliances from reicipes
     recipes.forEach(function (recipes) {
         appliancesDuplicate.push(recipes.appliance)
     })
     let appliances = [...new Set(appliancesDuplicate)];
 
+
+    //all ingredients from reicipes
     recipes.forEach(function (recipes) {
         recipes.ingredients.forEach(function(ingredients){
             ingredientsDuplicate.push(ingredients.ingredient)
@@ -36,21 +39,51 @@ function displayDropdown(recipes) {
     });
     let ingredients = [...new Set(ingredientsDuplicate)];
 
+    //all ustensils from reicipes
     recipes.forEach(function (recipes) {
         ustensilsConcat.push(recipes.ustensils)
     })
     let ustensilsDuplicate = [].concat.apply([], ustensilsConcat);
     let ustensils = [...new Set(ustensilsDuplicate)];
 
+    function dropdownResearch (appliances, ingredients, ustensils) {
+
+        //appliances research
+        const appliancesSearchField = document.getElementById("appliance-tag-input");
+        let appliancesSearchFieldValue =""
+        appliancesSearchField.addEventListener('change', function() {
+            appliancesSearchFieldValue = this.value;
+        })
+        appliances = appliances.filter(function(el) {
+        return el.id = appliancesSearchFieldValue;
+        });
+
+        //ingredients research
+        const ingredientsSearchField = document.getElementById("ingredients-tag-input");
+        let ingredientsSearchFieldValue =""
+        ingredientsSearchField.addEventListener('change', function() {
+            ingredientsSearchFieldValue = this.value;
+        })
+        ingredients = ingredients.filter(function(el) {
+        return el.id = ingredientsSearchFieldValue;
+        });
+
+        //ustensils research
+        const ustensilsSearchField = document.getElementById("ustensils-tag-input");
+        let ustensilsSearchFieldValue =""
+        ustensilsSearchField.addEventListener('change', function() {
+            ustensilsSearchFieldValue = this.value;
+        })
+        ustensils = ustensils.filter(function(el) {
+        return el.id = ustensilsSearchFieldValue;
+        });
+    }
+
     let dropdownAppliance = dropdownFactory (appliances, dropdownListAppliance)
     let dropdownIngredients = dropdownFactory (ingredients, dropdownListIngredients)
     let dropdownUstensils = dropdownFactory (ustensils, dropdownListUstensils)
-    //recipes.forEach((recipe) => {
-    //    const dropdownModel = dropdownFactory(recipe);
-    //    const dropdownDOM = dropdownModel.getApplianceDropdownCardDOM();
-    //    dropdownList.innerHTML += dropdownDOM;
-    //});
 };
+
 
 let selectedIngredients = "Concombre";
 let selectedAppliances = ["Saladier"];
