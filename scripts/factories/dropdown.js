@@ -1,15 +1,18 @@
-function dropdownFactory (data, element) {
+function dropdownFactory (element) {
 
     let selectedItems = []
     const dropdown = element.querySelector(".dropdownItems")
     const tags = document.querySelector(".tags")
+    const div =  document.createElement( 'div' )
     const color = element.getAttribute("data-color")
-    getApplianceDropdownCardDOM();
+    let dataSearch = []
+    const SearchField = element.getElementsByClassName("tag-search-input")[0];
+    SearchField.addEventListener('change', searchFieldValue)
 
-    function getApplianceDropdownCardDOM() {
-        
+    function getItemDropdownCardDOM(data) {
+        dataSearch = data
         let dropdownTemplate = ""
-        data.forEach(function (item) {
+        dataSearch.forEach(function (item) {
             dropdownTemplate += `<li><a class="dropdown-item ${color}" href="#">${item}</a></li>`
         })
         dropdown.innerHTML = dropdownTemplate
@@ -27,26 +30,70 @@ function dropdownFactory (data, element) {
         
     }
 
-    function _displayTag(tagName) {  
+    function _displayTag(currentTagTarget) {  
+        
+        //create elements
+        const button = document.createElement( 'button' )
+        const spanText = document.createElement( 'span' )
+        const spanCross = document.createElement( 'span' )
 
-        tagTemplate = 
-        `<div class="singleTag ${color} d-flex flex-row">
-            <button class="btn ${color} ">${tagName}<span class="fa-regular fa-circle-xmark"></span></button>
-        </div>`
-        tags.innerHTML += tagTemplate
+        //configure elements
+        if (color == "red") {
+            div.setAttribute("class", "singleTag red d-flex flex-row");
+            button.setAttribute("class", "btn red");
+        }
+        if (color == "blue") {
+            div.setAttribute("class", "singleTag blue d-flex flex-row");
+            button.setAttribute("class", "btn blue");
+        }
+        if (color == "green") {
+            div.setAttribute("class", "singleTag green d-flex flex-row");
+            button.setAttribute("class", "btn green");
+        }
+        spanText.setAttribute("class", "btnText");
+        spanText.innerHTML=currentTagTarget
+        spanCross.setAttribute("class", "fa-regular fa-circle-xmark");
+
+        //append elements
+        tags.appendChild(div)
+        div.appendChild(button);
+        button.appendChild(spanText);
+        button.appendChild(spanCross);
+
+        const closeTagBtn = div;
+        closeTagBtn.forEach((tag) =>tag.addEventListener('click', _deleteTag));
+
+        return (tags)
+        
+
     }
 
     function closeListener() {
-        const closeTagBtn = element.querySelector(".singleTag");
+        const closeTagBtn = div;
         closeTagBtn.forEach((tag) =>tag.addEventListener('click', _deleteTag));
     }
 
     function _deleteTag (event) {
         let currentTagTarget = event.currentTarget;
-        const istagToDelete = (elementToFind) => elementToFind = currentTagTarget.innerHTML;
+        const istagToDelete = (elementToFind) => elementToFind == currentTagTarget.innerHTML;
         let tagToDelete = selectedItems.findIndex(istagToDelete)
         selectedItems.splice(tagToDelete, 1)
 
     }
-    return { selectedItems, getApplianceDropdownCardDOM, closeListener }
+
+    function searchFieldValue() {
+        SearchFieldValue = this.value;
+        SearchFieldValue = SearchFieldValue.toLowerCase();
+        let dataSearchResult = []
+        let dataSearchLower = dataSearch.map(item => item.toLowerCase());
+
+        dataSearchLower.forEach(function (items) {
+            if (items.includes(SearchFieldValue)) {
+                dataSearchResult.push(items)
+                return (getItemDropdownCardDOM(dataSearchResult));
+            }
+        })
+    }
+
+    return { selectedItems, getItemDropdownCardDOM, closeListener }
 }

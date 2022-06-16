@@ -17,9 +17,6 @@ function displayRecipes(recipes) {
 };
 
 function displayDropdown(recipes) {
-    const dropdownListAppliance = document.querySelector(".dropdown.appliances");
-    const dropdownListIngredients = document.querySelector(".dropdown.ingredients");
-    const dropdownListUstensils = document.querySelector(".dropdown.ustensils");
     let appliancesDuplicate = []
     let ingredientsDuplicate = []
     let ustensilsConcat = []
@@ -29,6 +26,7 @@ function displayDropdown(recipes) {
         appliancesDuplicate.push(recipes.appliance)
     })
     let appliances = [...new Set(appliancesDuplicate)];
+    appliances.sort()
 
 
     //all ingredients from reicipes
@@ -38,6 +36,7 @@ function displayDropdown(recipes) {
           })
     });
     let ingredients = [...new Set(ingredientsDuplicate)];
+    ingredients.sort()
 
     //all ustensils from reicipes
     recipes.forEach(function (recipes) {
@@ -45,45 +44,20 @@ function displayDropdown(recipes) {
     })
     let ustensilsDuplicate = [].concat.apply([], ustensilsConcat);
     let ustensils = [...new Set(ustensilsDuplicate)];
+    ustensils.sort()
 
-    function dropdownResearch (appliances, ingredients, ustensils) {
+    dropdownAppliance.getItemDropdownCardDOM(appliances)
+    dropdownIngredients.getItemDropdownCardDOM(ingredients)
+    dropdownUstensils.getItemDropdownCardDOM(ustensils)
+}
 
-        //appliances research
-        const appliancesSearchField = document.getElementById("appliance-tag-input");
-        let appliancesSearchFieldValue =""
-        appliancesSearchField.addEventListener('change', function() {
-            appliancesSearchFieldValue = this.value;
-        })
-        appliances = appliances.filter(function(el) {
-        return el.id = appliancesSearchFieldValue;
-        });
+const dropdownListAppliance = document.querySelector(".dropdown.appliances");
+const dropdownListIngredients = document.querySelector(".dropdown.ingredients");
+const dropdownListUstensils = document.querySelector(".dropdown.ustensils");
 
-        //ingredients research
-        const ingredientsSearchField = document.getElementById("ingredients-tag-input");
-        let ingredientsSearchFieldValue =""
-        ingredientsSearchField.addEventListener('change', function() {
-            ingredientsSearchFieldValue = this.value;
-        })
-        ingredients = ingredients.filter(function(el) {
-        return el.id = ingredientsSearchFieldValue;
-        });
-
-        //ustensils research
-        const ustensilsSearchField = document.getElementById("ustensils-tag-input");
-        let ustensilsSearchFieldValue =""
-        ustensilsSearchField.addEventListener('change', function() {
-            ustensilsSearchFieldValue = this.value;
-        })
-        ustensils = ustensils.filter(function(el) {
-        return el.id = ustensilsSearchFieldValue;
-        });
-    }
-
-    let dropdownAppliance = dropdownFactory (appliances, dropdownListAppliance)
-    let dropdownIngredients = dropdownFactory (ingredients, dropdownListIngredients)
-    let dropdownUstensils = dropdownFactory (ustensils, dropdownListUstensils)
-};
-
+let dropdownAppliance = dropdownFactory (dropdownListAppliance)
+let dropdownIngredients = dropdownFactory (dropdownListIngredients)
+let dropdownUstensils = dropdownFactory (dropdownListUstensils)
 
 let selectedIngredients = "Concombre";
 let selectedAppliances = ["Saladier"];

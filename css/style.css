@@ -103,6 +103,10 @@ body {
     box-shadow: none;
 }
 
+#body .form-control {
+    color: white;
+}
+
 
 .fa-magnifying-glass {
     color: black;
