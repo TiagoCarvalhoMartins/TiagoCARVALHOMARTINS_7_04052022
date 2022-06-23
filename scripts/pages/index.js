@@ -16,7 +16,7 @@ function displayRecipes(recipes) {
     });
 };
 
-function displayDropdown(recipes) {
+function getItemsList(recipes) {
     let appliancesDuplicate = []
     let ingredientsDuplicate = []
     let ustensilsConcat = []
@@ -46,9 +46,18 @@ function displayDropdown(recipes) {
     let ustensils = [...new Set(ustensilsDuplicate)];
     ustensils.sort()
 
-    dropdownAppliance.getItemDropdownCardDOM(appliances)
-    dropdownIngredients.getItemDropdownCardDOM(ingredients)
-    dropdownUstensils.getItemDropdownCardDOM(ustensils)
+    return ([appliances, ingredients, ustensils])
+
+}
+
+function updateDropdown(recipes) {
+
+    const itemList = getItemsList(recipes)
+    dropdownAppliance.getItemDropdownCardDOM(itemList[0])
+    dropdownIngredients.getItemDropdownCardDOM(itemList[1])
+    dropdownUstensils.getItemDropdownCardDOM(itemList[2])
+
+    
 }
 
 const dropdownListAppliance = document.querySelector(".dropdown.appliances");
@@ -59,24 +68,21 @@ let dropdownAppliance = dropdownFactory (dropdownListAppliance)
 let dropdownIngredients = dropdownFactory (dropdownListIngredients)
 let dropdownUstensils = dropdownFactory (dropdownListUstensils)
 
-let selectedIngredients = "Concombre";
-let selectedAppliances = ["Saladier"];
-let selectedUstensils = "presse citron";
-
 async function init() {
     const recipes  = await getRecipes();
     displayRecipes(recipes);
-    displayDropdown(recipes);
+    updateDropdown(recipes);
 
-   function filterIngredient(recipes, selectedAppliances, selectedUstensils) {
-        const recipesFiltered = recipes.filter (function (recipe) {
-            let applianceFiltered = selectedAppliances.includes(recipe.appliance) 
-            let ustensilsFiltered = recipe.ustensils.includes(selectedUstensils)
-            return (applianceFiltered || ustensilsFiltered)
+   function filterIngredient(recipes, selectedItems) {
+        let recipesFiltered = recipes.filter (function (recipe) {
+            let applianceFiltered = recipe.appliances.includes(selectedItems) 
+            let ustensilsFiltered = recipe.ustensils.includes(selectedItems)
+            let ingredientsFiltered = recipe.ingredients.includes(selectedItems)
+            return (applianceFiltered || ustensilsFiltered || ingredientsFiltered)
         })
         return (recipesFiltered)
    }
-    const recipesFiltered = filterIngredient(recipes, selectedAppliances, selectedUstensils)
+    let recipesFiltered = filterIngredient(recipes, ustensilsFiltered, applianceFiltered, ingredientsFiltered)
     displayRecipes (recipesFiltered)
 };
 

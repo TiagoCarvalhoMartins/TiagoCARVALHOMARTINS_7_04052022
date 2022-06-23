@@ -3,16 +3,19 @@ function dropdownFactory (element) {
     let selectedItems = []
     const dropdown = element.querySelector(".dropdownItems")
     const tags = document.querySelector(".tags")
-    const div =  document.createElement( 'div' )
     const color = element.getAttribute("data-color")
     let dataSearch = []
     const SearchField = element.getElementsByClassName("tag-search-input")[0];
-    SearchField.addEventListener('change', searchFieldValue)
+    SearchField.addEventListener('input', searchFieldValue)
+
+    function initDropdown(data) {
+        dataSearch = data
+    }
 
     function getItemDropdownCardDOM(data) {
-        dataSearch = data
+        //dataSearch = data
         let dropdownTemplate = ""
-        dataSearch.forEach(function (item) {
+        data.forEach(function (item) {
             dropdownTemplate += `<li><a class="dropdown-item ${color}" href="#">${item}</a></li>`
         })
         dropdown.innerHTML = dropdownTemplate
@@ -33,23 +36,15 @@ function dropdownFactory (element) {
     function _displayTag(currentTagTarget) {  
         
         //create elements
+        const div =  document.createElement( 'div' )
         const button = document.createElement( 'button' )
         const spanText = document.createElement( 'span' )
         const spanCross = document.createElement( 'span' )
 
         //configure elements
-        if (color == "red") {
-            div.setAttribute("class", "singleTag red d-flex flex-row");
-            button.setAttribute("class", "btn red");
-        }
-        if (color == "blue") {
-            div.setAttribute("class", "singleTag blue d-flex flex-row");
-            button.setAttribute("class", "btn blue");
-        }
-        if (color == "green") {
-            div.setAttribute("class", "singleTag green d-flex flex-row");
-            button.setAttribute("class", "btn green");
-        }
+        
+        div.setAttribute("class", "singleTag " + color + " d-flex flex-row");
+        button.setAttribute("class", "btn " + color);
         spanText.setAttribute("class", "btnText");
         spanText.innerHTML=currentTagTarget
         spanCross.setAttribute("class", "fa-regular fa-circle-xmark");
@@ -60,32 +55,29 @@ function dropdownFactory (element) {
         button.appendChild(spanText);
         button.appendChild(spanCross);
 
-        const closeTagBtn = div;
-        closeTagBtn.forEach((tag) =>tag.addEventListener('click', _deleteTag));
+        div.addEventListener('click', _deleteTag)
 
         return (tags)
         
 
     }
 
-    function closeListener() {
-        const closeTagBtn = div;
-        closeTagBtn.forEach((tag) =>tag.addEventListener('click', _deleteTag));
-    }
-
     function _deleteTag (event) {
         let currentTagTarget = event.currentTarget;
-        const istagToDelete = (elementToFind) => elementToFind == currentTagTarget.innerHTML;
+        const tagSelector = currentTagTarget.querySelector(".btnText")
+        const istagToDelete = (elementToFind) => elementToFind == tagSelector.innerHTML;
         let tagToDelete = selectedItems.findIndex(istagToDelete)
         selectedItems.splice(tagToDelete, 1)
+        currentTagTarget.remove();
 
     }
 
     function searchFieldValue() {
+        const itemsList = initDropdown()
         SearchFieldValue = this.value;
         SearchFieldValue = SearchFieldValue.toLowerCase();
         let dataSearchResult = []
-        let dataSearchLower = dataSearch.map(item => item.toLowerCase());
+        let dataSearchLower = itemsList.map(item => item.toLowerCase());
 
         dataSearchLower.forEach(function (items) {
             if (items.includes(SearchFieldValue)) {
@@ -95,5 +87,5 @@ function dropdownFactory (element) {
         })
     }
 
-    return { selectedItems, getItemDropdownCardDOM, closeListener }
+    return { selectedItems, getItemDropdownCardDOM }
 }
