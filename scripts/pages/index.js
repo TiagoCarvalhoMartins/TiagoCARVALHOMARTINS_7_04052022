@@ -1,3 +1,5 @@
+let recipes = [];
+
 async function getRecipes() {
     // Penser à remplacer par les données récupérées dans le json
     let response = await fetch("data/recipes.json")
@@ -53,37 +55,78 @@ function getItemsList(recipes) {
 function updateDropdown(recipes) {
 
     const itemList = getItemsList(recipes)
-    dropdownAppliance.getItemDropdownCardDOM(itemList[0])
+    dropdownAppliances.initDropdown(itemList[0])
+    dropdownIngredients.initDropdown(itemList[1])
+    dropdownUstensils.initDropdown(itemList[2])
+    dropdownAppliances.getItemDropdownCardDOM(itemList[0])
     dropdownIngredients.getItemDropdownCardDOM(itemList[1])
     dropdownUstensils.getItemDropdownCardDOM(itemList[2])
 
     
 }
 
-const dropdownListAppliance = document.querySelector(".dropdown.appliances");
+function search () {
+    const appliancesSelected = dropdownAppliances.selectedItems
+    const ustensilsSelected = dropdownUstensils.selectedItems
+    const ingredientsSelected = dropdownIngredients.selectedItems
+    let recipesFiltered = filterRecipes(recipes, appliancesSelected, ustensilsSelected, ingredientsSelected)
+    displayRecipes (recipesFiltered)
+}
+
+function searchBar(recipes) {
+    const mainSearchBar = document.getElementsByClassName("researchForm")[0]
+    mainSearchBar.addEventListener('input', mainSearchBarResult)
+
+    function mainSearchBarResult() {
+        mainSearchBarValue = this.value;
+        let recipesSearchFiltered = recipes.filter (function (recipe) {
+            recipe.forEach(function (recipes) {
+                if (recipes.name.includes(mainSearchBarValue)) {
+                    return true;
+                } if (recipes.description.includes(mainSearchBarValue)) {
+                    return true;
+                } if (recipes.ingredients.ingredient.includes(mainSearchBarValue)) {
+                    return true;
+                } else {
+                    return false
+                }
+            })
+        })
+        return (recipesSearchFiltered)
+    }
+}
+
+const dropdownListAppliances = document.querySelector(".dropdown.appliances");
 const dropdownListIngredients = document.querySelector(".dropdown.ingredients");
 const dropdownListUstensils = document.querySelector(".dropdown.ustensils");
 
-let dropdownAppliance = dropdownFactory (dropdownListAppliance)
+let dropdownAppliances = dropdownFactory (dropdownListAppliances)
 let dropdownIngredients = dropdownFactory (dropdownListIngredients)
 let dropdownUstensils = dropdownFactory (dropdownListUstensils)
 
 async function init() {
-    const recipes  = await getRecipes();
+    recipes  = await getRecipes();
     displayRecipes(recipes);
     updateDropdown(recipes);
-
-   function filterIngredient(recipes, selectedItems) {
-        let recipesFiltered = recipes.filter (function (recipe) {
-            let applianceFiltered = recipe.appliances.includes(selectedItems) 
-            let ustensilsFiltered = recipe.ustensils.includes(selectedItems)
-            let ingredientsFiltered = recipe.ingredients.includes(selectedItems)
-            return (applianceFiltered || ustensilsFiltered || ingredientsFiltered)
-        })
-        return (recipesFiltered)
-   }
-    let recipesFiltered = filterIngredient(recipes, ustensilsFiltered, applianceFiltered, ingredientsFiltered)
-    displayRecipes (recipesFiltered)
 };
+
+function filterRecipes(recipes, appliancesSelected, ingredientsSelected, ustensilsSelected) {
+    let recipesFiltered = recipes.filter (function (recipe) {
+        let hasAppliance = appliancesSelected.includes(recipe.appliance)
+        //let hasUstensil = ustensilsSelected.includes(recipe.ustensils)
+        function checkUstensils(ustensilsSelected) {
+            if (recipe.ustensils.indexOf(ustensilsSelected) <= -1) {
+                return false
+            } else if (recipe.ustensils.indexOf(ustensilsSelected) >= 0) {
+                return true
+            }
+        }
+        let hasUstensils = checkUstensils(ustensilsSelected)
+        let hasIngredient = ingredientsSelected.includes(recipe.ingredients.ingredient) 
+
+        return (hasAppliance, hasIngredient, hasUstensils)
+    })
+    return (recipesFiltered)
+}
 
 init();

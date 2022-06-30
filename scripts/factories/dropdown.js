@@ -30,6 +30,7 @@ function dropdownFactory (element) {
         let currentTagTarget = event.currentTarget;
         selectedItems.push(currentTagTarget.innerHTML)
         _displayTag (currentTagTarget.innerHTML);
+        search ();
         
     }
 
@@ -73,11 +74,10 @@ function dropdownFactory (element) {
     }
 
     function searchFieldValue() {
-        const itemsList = initDropdown()
         SearchFieldValue = this.value;
         SearchFieldValue = SearchFieldValue.toLowerCase();
         let dataSearchResult = []
-        let dataSearchLower = itemsList.map(item => item.toLowerCase());
+        let dataSearchLower = dataSearch.map(item => item.toLowerCase());
 
         dataSearchLower.forEach(function (items) {
             if (items.includes(SearchFieldValue)) {
@@ -87,5 +87,5 @@ function dropdownFactory (element) {
         })
     }
 
-    return { selectedItems, getItemDropdownCardDOM }
+    return { selectedItems, getItemDropdownCardDOM, initDropdown }
 }
