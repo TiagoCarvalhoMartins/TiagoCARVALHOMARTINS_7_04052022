@@ -69,32 +69,39 @@ function search () {
     const appliancesSelected = dropdownAppliances.selectedItems
     const ustensilsSelected = dropdownUstensils.selectedItems
     const ingredientsSelected = dropdownIngredients.selectedItems
-    let recipesFiltered = filterRecipes(recipes, appliancesSelected, ustensilsSelected, ingredientsSelected)
+    let recipesFiltered = filterRecipes(recipes, appliancesSelected, ingredientsSelected, ustensilsSelected)
     displayRecipes (recipesFiltered)
+    
 }
 
-function searchBar(recipes) {
-    const mainSearchBar = document.getElementsByClassName("researchForm")[0]
+function searchBar() {
+    const mainSearchBar = document.getElementById("search-tag-input")
     mainSearchBar.addEventListener('input', mainSearchBarResult)
-
-    function mainSearchBarResult() {
-        mainSearchBarValue = this.value;
-        let recipesSearchFiltered = recipes.filter (function (recipe) {
-            recipe.forEach(function (recipes) {
-                if (recipes.name.includes(mainSearchBarValue)) {
-                    return true;
-                } if (recipes.description.includes(mainSearchBarValue)) {
-                    return true;
-                } if (recipes.ingredients.ingredient.includes(mainSearchBarValue)) {
-                    return true;
-                } else {
-                    return false
-                }
-            })
-        })
-        return (recipesSearchFiltered)
-    }
 }
+
+function mainSearchBarResult(recipes) {
+    mainSearchBarValue = this.value;
+    let ingredientSearch = recipes.ingredients.find(function (ingredient) { 
+        mainSearchBarValue.includes(ingredient.ingredient)
+        return ingredientSearch
+    })
+
+    let recipesSearchFiltered = recipes.filter (function (recipe) {
+        recipe.forEach(function (recipes) {
+            if (recipes.name.includes(mainSearchBarValue)) {
+                return true;
+            } if (recipes.description.includes(mainSearchBarValue)) {
+                return true;
+            } if (ingredientSearch = true){
+                return true;
+            } else {
+                return false
+            }
+        })
+    })
+    return (recipesSearchFiltered)
+}
+
 
 const dropdownListAppliances = document.querySelector(".dropdown.appliances");
 const dropdownListIngredients = document.querySelector(".dropdown.ingredients");
@@ -107,24 +114,28 @@ let dropdownUstensils = dropdownFactory (dropdownListUstensils)
 async function init() {
     recipes  = await getRecipes();
     displayRecipes(recipes);
+    searchBar()
     updateDropdown(recipes);
 };
 
 function filterRecipes(recipes, appliancesSelected, ingredientsSelected, ustensilsSelected) {
+
     let recipesFiltered = recipes.filter (function (recipe) {
         let hasAppliance = appliancesSelected.includes(recipe.appliance)
-        //let hasUstensil = ustensilsSelected.includes(recipe.ustensils)
-        function checkUstensils(ustensilsSelected) {
-            if (recipe.ustensils.indexOf(ustensilsSelected) <= -1) {
-                return false
-            } else if (recipe.ustensils.indexOf(ustensilsSelected) >= 0) {
-                return true
-            }
-        }
-        let hasUstensils = checkUstensils(ustensilsSelected)
-        let hasIngredient = ingredientsSelected.includes(recipe.ingredients.ingredient) 
 
-        return (hasAppliance, hasIngredient, hasUstensils)
+        let findUstensils = recipe.ustensils.find(function (ustensil) { 
+            let hasUstensil = ustensilsSelected.includes(ustensil)
+            return hasUstensil
+         })
+        let hasUstensil = findUstensils !== undefined 
+
+        let findIngredients = recipe.ingredients.find(function (ingredient) { 
+           let hasIngredient = ingredientsSelected.includes(ingredient.ingredient)
+           return hasIngredient
+        })
+        let hasIngredient = findIngredients !== undefined
+
+        return hasAppliance || hasIngredient || hasUstensil
     })
     return (recipesFiltered)
 }
