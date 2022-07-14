@@ -101,13 +101,13 @@ function mainSearchBarResult(recipes) {
             return true;
         } if (recipe.description.includes(mainSearchBarValue)) {
             return true;
-        } if (ingredientSearch === true){
+        } if (ingredientSearch !== undefined){
             return true;
         } else {
             return false
         }
     })
-    return (recipesSearchFiltered)
+    displayRecipes(recipesSearchFiltered)
 }
 
 
