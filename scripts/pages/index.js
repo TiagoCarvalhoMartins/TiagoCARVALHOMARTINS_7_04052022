@@ -126,8 +126,27 @@ async function init() {
     updateDropdown(recipes);
 };
 
-//function filterRecipes(recipes, appliancesSelected, ingredientsSelected, ustensilsSelected) {
-//
+function filterRecipes(recipes, appliancesSelected, ingredientsSelected, ustensilsSelected) {
+  
+    var len = recipes.length;
+    for (var i = 0; i < len; i++) {
+            let hasAppliance = appliancesSelected.includes(recipe.appliance)
+    
+            let findUstensils = recipe.ustensils.find(function (ustensil) { 
+                let hasUstensil = ustensilsSelected.includes(ustensil)
+                return hasUstensil
+             })
+            let hasUstensil = findUstensils !== undefined 
+    
+            let findIngredients = recipe.ingredients.find(function (ingredient) { 
+               let hasIngredient = ingredientsSelected.includes(ingredient.ingredient)
+               return hasIngredient
+            })
+            let hasIngredient = findIngredients !== undefined
+    
+            return hasAppliance || hasIngredient || hasUstensil
+    }
+}
 //    let recipesFiltered = recipes.filter (function (recipe) {
 //        let hasAppliance = appliancesSelected.includes(recipe.appliance)
 //
@@ -146,6 +165,6 @@ async function init() {
 //        return hasAppliance || hasIngredient || hasUstensil
 //    })
 //    return (recipesFiltered)
-//}
+}
 
 init();
