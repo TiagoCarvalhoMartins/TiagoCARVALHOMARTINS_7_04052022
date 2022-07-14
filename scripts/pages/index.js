@@ -70,34 +70,42 @@ function search () {
     const ustensilsSelected = dropdownUstensils.selectedItems
     const ingredientsSelected = dropdownIngredients.selectedItems
     let recipesFiltered = filterRecipes(recipes, appliancesSelected, ingredientsSelected, ustensilsSelected)
-    displayRecipes (recipesFiltered)
+    if (recipesFiltered.length == 0) {
+        displayRecipes (recipes)
+    } else {
+        displayRecipes (recipesFiltered)
+    }
     
 }
 
-function searchBar() {
-    const mainSearchBar = document.getElementById("search-tag-input")
-    mainSearchBar.addEventListener('input', mainSearchBarResult)
+const mainSearchBar = document.getElementById("search-tag-input")
+
+function searchBar(recipes) {
+    mainSearchBar.addEventListener('input', function() {
+        mainSearchBarResult(recipes);
+    })
 }
 
 function mainSearchBarResult(recipes) {
-    mainSearchBarValue = this.value;
-    let ingredientSearch = recipes.ingredients.find(function (ingredient) { 
-        mainSearchBarValue.includes(ingredient.ingredient)
-        return ingredientSearch
-    })
+    mainSearchBarValue = mainSearchBar.value;
 
     let recipesSearchFiltered = recipes.filter (function (recipe) {
-        recipe.forEach(function (recipes) {
-            if (recipes.name.includes(mainSearchBarValue)) {
-                return true;
-            } if (recipes.description.includes(mainSearchBarValue)) {
-                return true;
-            } if (ingredientSearch = true){
-                return true;
+        let ingredientSearch = recipe.ingredients.find(function (ingredient) { 
+            if (ingredient.ingredient.indexOf(mainSearchBarValue) > -1)  {
+               return true
             } else {
-                return false
-            }
+               return false 
+            }     
         })
+        if (recipe.name.includes(mainSearchBarValue)) {
+            return true;
+        } if (recipe.description.includes(mainSearchBarValue)) {
+            return true;
+        } if (ingredientSearch === true){
+            return true;
+        } else {
+            return false
+        }
     })
     return (recipesSearchFiltered)
 }
@@ -114,7 +122,7 @@ let dropdownUstensils = dropdownFactory (dropdownListUstensils)
 async function init() {
     recipes  = await getRecipes();
     displayRecipes(recipes);
-    searchBar()
+    searchBar(recipes)
     updateDropdown(recipes);
 };
 

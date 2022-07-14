@@ -70,7 +70,7 @@ function dropdownFactory (element) {
         let tagToDelete = selectedItems.findIndex(istagToDelete)
         selectedItems.splice(tagToDelete, 1)
         currentTagTarget.remove();
-        initDropdown(data)
+        search ();
 
     }
 
