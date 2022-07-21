@@ -137,9 +137,25 @@ function filterRecipes(recipes, appliancesSelected, ingredientsSelected, ustensi
          })
         let hasUstensil = findUstensils !== undefined 
 
-        let findIngredients = recipe.ingredients.find(function (ingredient) { 
-           let hasIngredient = ingredientsSelected.includes(ingredient.ingredient)
-           return hasIngredient
+        let findIngredients = recipe.ingredients.find(function () { 
+            let ingredientsList = []
+            recipe.ingredients.forEach((ingredient) => {
+                ingredientsList.push(ingredient.ingredient)
+            })
+            let containsAllIngredients = ingredientsSelected.every(ingredientsList => {
+                let hasIngredient = ingredientsSelected.includes(ingredientsList);
+                return hasIngredient
+              });
+            //function checkIngredients (ingredientsSelected) {
+            //    let ingredientsList = []
+            //    recipe.ingredients.forEach((ingredient) => {
+            //        ingredientsList.push(ingredient.ingredient)
+            //    })
+            //    let hasIngredient = ingredientsSelected.includes(ingredientsList)
+            //    return hasIngredient
+            //}
+           //let everyIngredient = ingredientsSelected.every(checkIngredients)
+           return containsAllIngredients
         })
         let hasIngredient = findIngredients !== undefined
 
@@ -147,5 +163,5 @@ function filterRecipes(recipes, appliancesSelected, ingredientsSelected, ustensi
     })
     return (recipesFiltered)
 }
-
+-
 init();
